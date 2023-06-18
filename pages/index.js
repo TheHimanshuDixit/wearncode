@@ -10,7 +10,6 @@ export default function Home() {
       </Head>
       <main>
         <div className='mx-4 bg-slate-500'>
-        hello world
         </div>
       </main>
     </>
