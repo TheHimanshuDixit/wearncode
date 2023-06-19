@@ -73,8 +73,8 @@ const Navbar = () => {
             </li>
           </ol>
           <div className="flex">
-            <button class="flex mx-2 text-white bg-[#007fff] border-0 py-2 px-2 focus:outline-none hover:bg-[#009fff] text-xs rounded-lg"><BsFillBagCheckFill className='m-1' />Checkout</button>
-            <button class="flex mx-2 text-white bg-[#007fff] border-0 py-2 px-2 focus:outline-none hover:bg-[#009fff] text-xs rounded-lg">Clear Cart</button>
+            <button className="flex mx-2 text-white bg-[#007fff] border-0 py-2 px-2 focus:outline-none hover:bg-[#009fff] text-xs rounded-lg"><BsFillBagCheckFill className='m-1' />Checkout</button>
+            <button className="flex mx-2 text-white bg-[#007fff] border-0 py-2 px-2 focus:outline-none hover:bg-[#009fff] text-xs rounded-lg">Clear Cart</button>
           </div>
 
         </div>
