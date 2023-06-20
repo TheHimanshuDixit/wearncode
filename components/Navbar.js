@@ -19,7 +19,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   const ref = useRef()
   return (
     <>
-      <div className='flex flex-col md:flex-row md:justify-start justify-center items-center p-2 shadow-xl'>
+      <div className='flex flex-col md:flex-row md:justify-start justify-center items-center p-2 shadow-xl sticky top-0 z-10 bg-white'>
         <div className="logo mx-10">
           <Link href={"/"}><Image src="/logo.png" alt="logo" width={150} height={20} priority={true} /></Link>
         </div>
@@ -33,7 +33,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
         </div>
         <div onClick={toggleCart} className="cart absolute right-0 mx-5  text-xl md:text-2xl  cursor-pointer"><AiOutlineShoppingCart /></div>
 
-        <div ref={ref} className="w-64 h-full sideCart absolute top-0 right-0 bg-blue-300 px-8 py-10 transform transition-transform translate-x-full">
+        <div ref={ref} className="w-64 h-[100vh] sideCart absolute top-0 right-0 bg-blue-300 px-8 py-10 transform transition-transform translate-x-full">
           <h2 className='font-bold text-xl text-center'>Shopping Cart</h2>
           <span onClick={toggleCart} className='absolute top-4 right-4 cursor-pointer text-xl text-[#007fff]'><AiFillCloseCircle /></span>
           <ol className='list-decimal font-semibold'>
