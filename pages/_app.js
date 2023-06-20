@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }) {
     try {
       if (newCart) {
         setCart(JSON.parse(newCart));
+        saveCart(JSON.parse(newCart));
       }
     } catch (error) {
       console.log(error);
@@ -61,7 +62,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Navbar cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} />
+      <Navbar key={subtotal} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} />
       <Component cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} {...pageProps} />
       <Footer />
     </>
