@@ -1,7 +1,7 @@
 // getting-started.js
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-const ProductSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     desc: { type: String, required: true },
@@ -10,8 +10,9 @@ const ProductSchema = new mongoose.Schema({
     size: { type: String },
     color: { type: String },
     price: { type: Number, required: true },
-    availableQty: { type: Number, required: true },
+    availableQty: { type: Number, required: true }
 
-}, { timestamps: true });
+});
 
-export default mongoose.models.Product || mongoose.model("Product", ProductSchema);
+// module.exports = mongoose.models.Product
+export default mongoose.models.Product || mongoose.model("Product", productSchema)

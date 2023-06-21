@@ -1,7 +1,7 @@
 // getting-started.js
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-const OrderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema({
     userId: {type: String, required: true},
     products: [
         {
@@ -14,4 +14,4 @@ const OrderSchema = new mongoose.Schema({
     status: {type: String, default: 'Pending', required: true}
 }, {timestamps: true});
 
-export default mongoose.models.Order || mongoose.model("Order", OrderSchema);
+export default mongoose.models.Order || mongoose.model("Order", orderSchema);
