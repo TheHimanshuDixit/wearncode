@@ -10,28 +10,29 @@ const Footer = () => {
           <Link className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900" href={"/"}>
             <Image src="/logo.png" alt="logo" width={200} height={40} priority={true} />
           </Link>
-          <p className="mt-2 text-sm text-gray-500 px-1">Air plant banjo lyft occupy retro adaptogen indego</p>
+          <p className="mt-2 text-sm text-gray-500 px-1">Wear The &lt; CODE /&gt;</p>
+          <p className="mt-2 text-sm text-gray-500 px-1">Premium Coding Tshits, Hoodies and apparals</p>
         </div>
         <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
             <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
             <nav className="list-none mb-10">
               <li>
-                <a className="text-gray-600 hover:text-gray-800">First Link</a>
+                <Link href={'/tshirts'} className="text-gray-600 hover:text-gray-800">T-shirt</Link>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">Second Link</a>
+                <Link href={'/hoodies'} className="text-gray-600 hover:text-gray-800">Hoodies</Link>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">Third Link</a>
+                <Link href={'/stickers'} className="text-gray-600 hover:text-gray-800">Stickers</Link>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">Fourth Link</a>
+                <Link href={'/mugs'} className="text-gray-600 hover:text-gray-800">Mugs</Link>
               </li>
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
+            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">ABOUT</h2>
             <nav className="list-none mb-10">
               <li>
                 <a className="text-gray-600 hover:text-gray-800">First Link</a>
@@ -48,7 +49,7 @@ const Footer = () => {
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
+            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">POLICY</h2>
             <nav className="list-none mb-10">
               <li>
                 <a className="text-gray-600 hover:text-gray-800">First Link</a>
@@ -65,7 +66,7 @@ const Footer = () => {
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
+            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CONTACT</h2>
             <nav className="list-none mb-10">
               <li>
                 <a className="text-gray-600 hover:text-gray-800">First Link</a>
@@ -85,8 +86,8 @@ const Footer = () => {
       </div>
       <div className="bg-gray-100">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-          <p className="text-gray-500 text-sm text-center sm:text-left">© 2020 Tailblocks —
-            <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" className="text-gray-600 ml-1" target="_blank">@knyttneve</a>
+          <p className="text-gray-500 text-sm text-center sm:text-left">© 2023 WearNCode.com —
+            <a href="#" rel="noopener noreferrer" className="text-gray-600 ml-1" target="_blank">All rights reserved</a>
           </p>
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
             <a className="text-gray-500">

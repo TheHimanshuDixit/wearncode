@@ -26,10 +26,10 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
         </div>
         <div className="nav pt-2 md:pt-0">
           <ul className="flex items-center space-x-6 font-bold">
-            <Link href={"/tshirts"}><li>Tshirts</li></Link>
-            <Link href={"/hoodies"}><li>Hoodies</li></Link>
-            <Link href={"/stickers"}><li>Stickers</li></Link>
-            <Link href={"/mugs"}><li>Mugs</li></Link>
+            <Link href={"/tshirts"}><li className='hover:text-[#007fff] hover:underline'>Tshirts</li></Link>
+            <Link href={"/hoodies"}><li className='hover:text-[#007fff] hover:underline'>Hoodies</li></Link>
+            <Link href={"/stickers"}><li className='hover:text-[#007fff] hover:underline'>Stickers</li></Link>
+            <Link href={"/mugs"}><li className='hover:text-[#007fff] hover:underline'>Mugs</li></Link>
           </ul>
         </div>
         <div className="cart flex absolute right-0 mx-5  text-xl md:text-2xl  cursor-pointer">
@@ -45,7 +45,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
             {Object.keys(cart).map((k) => {
               return <li key={k}>
                 <div className="item flex my-6">
-                  <div className='w-2/3 font-semibold'>{cart[k].name}</div>
+                  <div className='w-2/3 font-semibold'>{cart[k].name}({cart[k].size}/{cart[k].variant})</div>
                   <div className='flex items-center justify-center font-semibold w-1/3 text-sm'><AiFillMinusCircle onClick={() => { removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].variant) }} className='cursor-pointer text-[#007fff]' /><span className=' mx-2'>{cart[k].qty}</span><AiFillPlusCircle onClick={() => { addToCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].variant) }} className='cursor-pointer text-[#007fff]' /></div>
                 </div>
               </li>
