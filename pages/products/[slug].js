@@ -171,7 +171,7 @@ export async function getServerSideProps(context) {
         await mongoose.connect(MONGODB_URI)
     }
     const product = await Product.findOne({ slug: context.query.slug });
-    let variants = await Product.find({ title: product.title })
+    let variants = await Product.find({ title: product.title, category: product.category })
     let colorSizeSlug = {} // {red: {xl: {slug: "Wear The Code"}}}
     for (let item of variants) {
         if (Object.keys(colorSizeSlug).includes(item.color)) {

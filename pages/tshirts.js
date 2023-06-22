@@ -10,6 +10,7 @@ const Tshirts = ({ products }) => {
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap -m-4 justify-center">
+          {Object.keys(products).length === 0 && <p>Sorry, all the T-shirts are currently out of stock. Now stock coming soon. Stay Tuned!</p>}
           {Object.keys(products).map((item) => {
             return <div key={products[item]._id} className="lg:w-1/5 md:w-1/2 p-4 w-full shadow-lg m-6">
               <Link href={`/products/${products[item].slug}`} className="block relativerounded overflow-hidden">
