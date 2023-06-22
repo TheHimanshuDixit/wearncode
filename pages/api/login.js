@@ -2,17 +2,17 @@
 import dbConnect from '../../middleware/dbConnect';
 import User from '@/models/user';
 var CryptoJS = require("crypto-js");
+var jwt = require('jsonwebtoken');
 
 const handler = async (req, res) => {
     if (req.method == 'POST') {
         let user = await User.findOne({ "email": req.body.email });
-        console.log(user.password);
         const bytes = CryptoJS.AES.decrypt(user.password, "secret123");
-        console.log(bytes.toString(CryptoJS.enc.Utf8));
         let decryptedPass = bytes.toString(CryptoJS.enc.Utf8);
         if (user) {
             if (req.body.email == user.email && req.body.password == decryptedPass) {
-                res.status(200).json({ success: "success", email: user.email, name: user.name });
+                var token = jwt.sign({ email: user.email, name: user.name }, 'jwtsecret', { expiresIn: '2d' });  // expires in 2 days
+                res.status(200).json({ success: "success", token });
             }
             else {
                 res.status(400).json({ success: "success", error: "Invalid Credentials" });
