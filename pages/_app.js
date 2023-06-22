@@ -3,10 +3,12 @@ import Navbar from '@/components/Navbar'
 import '@/styles/globals.css'
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({})
   const [subtotal, setSubTotal] = useState(0)
+  const router = useRouter()
 
   useEffect(() => {
     const newCart = localStorage.getItem('cart');
@@ -56,6 +58,13 @@ export default function App({ Component, pageProps }) {
     saveCart(myCart);
   }
 
+  const buyNow = (itemCode, qty, price, name, size, variant) => {
+    let newCart = { itemCode: { qty: 1, price, name, size, variant } }
+    setCart(newCart);
+    saveCart(newCart);
+    router.push('/checkout');
+  }
+
   const clearCart = () => {
     setCart({});
     saveCart({});
@@ -67,7 +76,7 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" href="/icon.png" />
       </Head>
       <Navbar key={subtotal} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} />
-      <Component cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} {...pageProps} />
+      <Component buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} {...pageProps} />
       <Footer />
     </>
   )
