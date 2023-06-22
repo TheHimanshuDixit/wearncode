@@ -2,20 +2,43 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import mongoose from "mongoose";
 import Product from '@/models/product';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Post = ({ buyNow, addToCart, product, variants }) => {
     const router = useRouter()
     const { slug } = router.query
     const [pin, setPin] = useState()
     const [service, setService] = useState()
+
     const checkServiceability = async () => {
         let pins = await fetch('http://localhost:3000/api/pincode');
         let pinData = await pins.json();
         if (pinData.includes(parseInt(pin))) {
             setService(true)
+            toast.success('Your pincode is servicable!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
             setService(false)
+            toast.error('Sorry, Your pincode is not servicable!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
 
@@ -33,6 +56,18 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <section className="text-gray-600 body-font overflow-hidden">
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
