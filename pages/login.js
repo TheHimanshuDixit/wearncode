@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/Ai'
 
 const Login = () => {
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [display1, setDisplay1] = useState('hidden')
   const [display2, setDisplay2] = useState('')
 
@@ -110,11 +110,11 @@ const Login = () => {
             <form onSubmit={handleSubmit} method='POST'>
               <div className="flex flex-col justify-center items-center m-2 space-y-6 md:space-y-8">
                 <div className="">
-                  <input onChange={handleChange} type="email" value={email} placeholder="Email" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
+                  <input onChange={handleChange} type="email" value={email} name='email' placeholder="Email" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
                 </div>
                 <div className="">
                   <AiOutlineEye onClick={ptype1} className={`ml-52 md:ml-[19rem] mt-3 text-lg absolute cursor-pointer ${display1}`} /> <AiOutlineEyeInvisible onClick={ptype2} className={`ml-52 md:ml-[19rem] mt-3 text-lg absolute cursor-pointer ${display2}`} />
-                  <input ref={ref} onChange={handleChange} type="password" value={password} placeholder="Password" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
+                  <input ref={ref} onChange={handleChange} type="password" name='password' value={password} placeholder="Password" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
                 </div>
               </div>
               <div className="text-center md:flex md:justify-center md:items-center md:space-x-12 pt-2">
@@ -130,7 +130,7 @@ const Login = () => {
             <div className="text-white text-base font-semibold text-center my-10 space-y-2 m-2">
               <h1 className="text-5xl">New Here?</h1>
               <h1 className="">Sign Up and discover new oppurtinities here</h1>
-              <Link href={'/signup'}><button className="mt-2 bg-white rounded-2xl px-4 text-[#007fff] py-1">SignUp</button></Link>
+              <Link href={'/signup'}><button className="mt-2 bg-white rounded-2xl px-4 text-[#007fff] pt-1 pb-2">SignUp</button></Link>
             </div>
           </div>
         </div>

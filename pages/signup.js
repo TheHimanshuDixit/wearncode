@@ -6,9 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/Ai'
 
 const Login = () => {
-  const [name, setName] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [display1, setDisplay1] = useState('hidden')
   const [display2, setDisplay2] = useState('')
 
@@ -40,6 +40,7 @@ const Login = () => {
   }
 
   const handleChange = (e) => {
+    console.log(email, password)
     const { name, value } = e.target
     if (name === 'name') {
       setName(value)
