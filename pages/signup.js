@@ -6,8 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/Ai'
 
 const Login = () => {
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
+  const [name, setName] = useState(null)
+  const [email, setEmail] = useState(null)
   const [password, setPassword] = useState()
   const [display1, setDisplay1] = useState('hidden')
   const [display2, setDisplay2] = useState('')
@@ -51,9 +51,9 @@ const Login = () => {
   }
 
   const ptype1 = () => {
-      ref.current.type = 'password'
-      setDisplay1('hidden')
-      setDisplay2('')
+    ref.current.type = 'password'
+    setDisplay1('hidden')
+    setDisplay2('')
   }
   const ptype2 = () => {
     ref.current.type = 'current-password'
@@ -103,12 +103,12 @@ const Login = () => {
                   <input onChange={handleChange} type="email" value={email} placeholder="Email" name='email' autoComplete='email' className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
                 </div>
                 <div className="">
-                  <AiOutlineEye onClick={ptype1} className={`ml-[19rem] mt-3 text-lg absolute cursor-pointer ${display1}`} /> <AiOutlineEyeInvisible onClick={ptype2} className={`ml-[19rem] mt-3 text-lg absolute cursor-pointer ${display2}`} />
+                  <AiOutlineEye onClick={ptype1} className={`ml-52 md:ml-[19rem] mt-3 text-lg absolute cursor-pointer ${display1}`} /> <AiOutlineEyeInvisible onClick={ptype2} className={`ml-52 md:ml-[19rem] mt-3 text-lg absolute cursor-pointer ${display2}`} />
                   <input ref={ref} onChange={handleChange} type="password" value={password} placeholder="Password" name='password' autoComplete='password' className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
                 </div>
               </div>
               <div className="text-center md:flex md:justify-center md:items-center md:space-x-12 pt-2">
-                <div><input type="checkbox" className='mr-1' required /><label htmlFor="check">Remember Me</label></div>
+                <div><input type="checkbox" className='mr-1' /><label htmlFor="check">Remember Me</label></div>
                 <div className='text-[#007fff]'><Link href={'/forgot'}>Forgot your password?</Link></div>
               </div>
               <div className="text-center mt-3">
