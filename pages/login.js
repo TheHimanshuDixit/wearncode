@@ -30,7 +30,7 @@ const Login = () => {
       localStorage.setItem('token', result.token) 
       toast.success('You are successfully logged in', {
         position: "bottom-left",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -40,7 +40,7 @@ const Login = () => {
       });
       setTimeout(() => {
         router.push('http://localhost:3000/')
-      }, 2000);
+      }, 1000);
     }
     else {
       toast.error(result.error, {
