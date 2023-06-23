@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Script from 'next/script'
-import React, { useRef, useState } from 'react'
+import router from 'next/router'
+import React, { useEffect, useRef, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/Ai'
@@ -13,6 +14,13 @@ const Login = () => {
   const [display2, setDisplay2] = useState('')
 
   let ref = useRef()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      router.push('/')
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()

@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { set } from 'mongoose'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingBar from 'react-top-loading-bar'
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({})
@@ -14,8 +15,18 @@ export default function App({ Component, pageProps }) {
   const [user, setUser] = useState({ value: null })
   const [key, setKey] = useState({ value: null })
   const router = useRouter(0)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
+
+    router.events.on('routeChangeStart', () => {
+      setProgress(50)
+    })
+
+    router.events.on('routeChangeComplete', () => {
+      setProgress(100)
+    })
+
     const newCart = localStorage.getItem('cart');
     try {
       if (newCart) {
@@ -99,6 +110,12 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+      <LoadingBar
+        color='#007fff'
+        progress={progress}
+        waitingTime={500}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <ToastContainer
         position="bottom-left"
         autoClose={5000}

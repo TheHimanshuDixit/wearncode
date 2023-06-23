@@ -1,8 +1,17 @@
 import Link from 'next/link'
 import Script from 'next/script'
-import React from 'react'
+import router from 'next/router'
+import React, { useEffect } from 'react'
 
 const Login = () => {
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            router.push('/')
+        }
+    }, [])
+
     return (
         <div className='mt-5 md:mb-24 md:mt-28'>
             <div className="flex justify-center">
@@ -27,7 +36,7 @@ const Login = () => {
                         <form action="">
                             <div className="flex flex-col justify-center items-center m-2 space-y-6 md:space-y-8">
                                 <div className="">
-                                    <input type="email" placeholder="Email" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required/>
+                                    <input type="email" placeholder="Email" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
                                 </div>
                             </div>
                             <div className="text-center mt-3">
