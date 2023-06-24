@@ -47,7 +47,7 @@ const Login = () => {
         theme: "light",
       });
       setTimeout(() => {
-        router.push('http://localhost:3000/')
+        router.push('/')
       }, 1000);
     }
     else {

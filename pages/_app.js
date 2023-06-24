@@ -4,10 +4,10 @@ import '@/styles/globals.css'
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { set } from 'mongoose'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar'
+require('dotenv').config()
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({})

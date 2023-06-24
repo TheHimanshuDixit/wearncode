@@ -3,7 +3,6 @@ import Link from 'next/link'
 import mongoose from "mongoose";
 import Product from '@/models/product';
 
-
 const Tshirts = ({ products }) => {
   console.log({ products })
   return (

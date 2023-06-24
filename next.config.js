@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: {
-    MONGODB_URI: "mongodb://127.0.0.1:27017/test"
-  },
   reactStrictMode: true,
+  env: {
+    MONGODB_URI: process.env.MONGODB_URI,
+  },
   images: {
     domains: ['source.unsplash.com'],
   },

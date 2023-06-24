@@ -12,7 +12,7 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
     const [service, setService] = useState()
 
     const checkServiceability = async () => {
-        let pins = await fetch('http://localhost:3000/api/pincode');
+        let pins = await fetch('/api/pincode');
         let pinData = await pins.json();
         if (pinData.includes(parseInt(pin))) {
             setService(true)
@@ -49,7 +49,7 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
     const [color, setColor] = useState(product.color);
     const [size, setSize] = useState(product.size);
     const refreshVariant = (newsize, newcolor) => {
-        let url = `http://localhost:3000/products/${variants[newcolor][newsize]['slug']}`
+        let url = `/products/${variants[newcolor][newsize]['slug']}`
         window.location = url;
     }
 
