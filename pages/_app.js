@@ -40,8 +40,8 @@ export default function App({ Component, pageProps }) {
     const token = localStorage.getItem('token');
     if (token) {
       setUser({ value: token })
-      setKey(Math.random())
     }
+    setKey(Math.random())
 
   }, [router.query])
 
@@ -131,7 +131,7 @@ export default function App({ Component, pageProps }) {
       <Head>
         <link rel="icon" href="/icon.png" />
       </Head>
-      <Navbar user={user} key={key} cart={cart} logout={logout} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} />
+      {key && <Navbar user={user} key={key} cart={cart} logout={logout} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} />}
       <Component buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} {...pageProps} />
       <Footer />
     </>
