@@ -1,14 +1,22 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AiOutlineShoppingCart, AiFillCloseCircle, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/Ai';
 import { BsFillBagCheckFill } from 'react-icons/Bs';
 import { MdAccountCircle } from 'react-icons/Md';
+import { useRouter } from 'next/router';
 
 
 const Navbar = ({ user, cart, logout, addToCart, removeFromCart, clearCart, subtotal }) => {
 
   const [dropdown, setDropdown] = useState(false)
+
+  const Router = useRouter()
+
+  // useEffect(() => {
+  //     ref.current.classList.remove('translate-x-0')
+  //     ref.current.classList.add('translate-x-full')
+  // }, [])
 
   const toggleCart = () => {
     if (ref.current.classList.contains('translate-x-full')) {
@@ -20,6 +28,7 @@ const Navbar = ({ user, cart, logout, addToCart, removeFromCart, clearCart, subt
       ref.current.classList.add('translate-x-full')
     }
   }
+
   const ref = useRef()
   return (
     <>
@@ -42,14 +51,13 @@ const Navbar = ({ user, cart, logout, addToCart, removeFromCart, clearCart, subt
             <Link href={"/orders"}><div className='hover:text-[#007fff] hover:underline font-semibold'>Orders</div></Link>
             <div onClick={logout} className='hover:text-[#007fff] hover:underline font-semibold'>Logout</div>
           </div>}
-
           {!user.value && <Link href={"/login"}>
             <button className='bg-[#007fff] rounded-md text-white mx-2 py-1 px-2 text-sm md:text-md'>Login</button>
           </Link>}
           <AiOutlineShoppingCart onClick={toggleCart} />
         </div>
 
-        <div ref={ref} className={`w-64 h-[100vh] overflow-y-scroll sideCart absolute top-0 right-0 bg-blue-300 px-8 py-10 transform transition-transform ${Object.keys(cart).length !== 0 ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div ref={ref} className={`w-64 h-[100vh] overflow-y-scroll sideCart absolute top-0 right-0 bg-blue-300 px-8 py-10 transform transition-transform translate-x-full ${Object.keys(cart).length !== 0 ? 'translate-x-0' : 'translate-x-full'}`}>
           <h2 className='font-bold text-xl text-center'>Shopping Cart</h2>
           <AiFillCloseCircle onClick={toggleCart} className='absolute top-4 right-4 cursor-pointer text-xl text-[#007fff]' />
           <ol className='list-decimal font-semibold'>
@@ -68,8 +76,8 @@ const Navbar = ({ user, cart, logout, addToCart, removeFromCart, clearCart, subt
             <Link href={'/checkout'}><button disabled={Object.keys(cart) == 0 ? true : false} className="disabled:bg-blue-400 flex mx-2 text-white bg-[#007fff] border-0 py-2 px-2 focus:outline-none hover:bg-[#009fff] text-xs rounded-lg"><BsFillBagCheckFill className='mx-1' />Checkout</button></Link>
             <button disabled={Object.keys(cart) == 0 ? true : false} onClick={clearCart} className="disabled:bg-blue-400 flex mx-2 text-white bg-[#007fff] border-0 py-2 px-2 focus:outline-none hover:bg-[#009fff] text-xs rounded-lg">ClearCart</button>
           </div>
-
         </div>
+
       </div >
     </>
   )
