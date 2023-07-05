@@ -35,16 +35,34 @@ const Login = () => {
     setName('');
     setEmail('');
     setPassword('');
-    toast.success('Your account has been created', {
-      position: "bottom-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+    if (result.success == 'success') {
+      localStorage.setItem('token', result.token)
+      toast.success('Your account has been created', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        router.push('/')
+      }, 1000);
+    }
+    else {
+      toast.error(result.error, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   }
 
   const handleChange = (e) => {
