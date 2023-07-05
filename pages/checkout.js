@@ -1,8 +1,15 @@
 import Link from 'next/link';
-import React, { useState } from 'react'
+import Router from 'next/router';
+import React, { useEffect, useState } from 'react'
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/Ai';
 
 const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Router.push('/login')
+    }
+  }, [])
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
