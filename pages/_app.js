@@ -10,6 +10,7 @@ import LoadingBar from 'react-top-loading-bar'
 require('dotenv').config()
 
 export default function App({ Component, pageProps }) {
+  const [cartQty, setCartQty] = useState(0)
   const [cart, setCart] = useState({})
   const [subtotal, setSubTotal] = useState(0)
   const [user, setUser] = useState({ value: null })
@@ -65,10 +66,13 @@ export default function App({ Component, pageProps }) {
   const saveCart = (myCart) => {
     localStorage.setItem('cart', JSON.stringify(myCart));
     let subt = 0;
+    let totqty = 0;
     let keys = Object.keys(myCart)
     for (let i = 0; i < keys.length; i++) {
       subt += myCart[keys[i]].price * myCart[keys[i]].qty;
+      totqty += myCart[keys[i]].qty;
     }
+    setCartQty(totqty);
     setSubTotal(subt);
   }
 
@@ -131,7 +135,7 @@ export default function App({ Component, pageProps }) {
       <Head>
         <link rel="icon" href="/icon.png" />
       </Head>
-      {key && <Navbar user={user} key={key} cart={cart} logout={logout} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} />}
+      {key && <Navbar user={user} key={key} cart={cart} cartQty={cartQty} logout={logout} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} />}
       <Component buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} {...pageProps} />
       <Footer />
     </>

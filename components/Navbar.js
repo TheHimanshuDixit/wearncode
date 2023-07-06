@@ -7,7 +7,7 @@ import { MdAccountCircle } from 'react-icons/Md';
 import { useRouter } from 'next/router';
 
 
-const Navbar = ({ user, cart, logout, addToCart, removeFromCart, clearCart, subtotal }) => {
+const Navbar = ({ user, cart, cartQty, logout, addToCart, removeFromCart, clearCart, subtotal }) => {
 
   const [dropdown, setDropdown] = useState(false)
 
@@ -55,6 +55,7 @@ const Navbar = ({ user, cart, logout, addToCart, removeFromCart, clearCart, subt
             <button className='bg-[#007fff] rounded-md text-white mx-2 py-1 px-2 text-sm md:text-md'>Login</button>
           </Link>}
           <AiOutlineShoppingCart onClick={toggleCart} />
+          <div className='absolute -right-1 -top-2 text-xs bg-[#007fff] text-white px-1 rounded-full'>{cartQty}</div>
         </div>
 
         <div ref={ref} className={`w-64 h-[100vh] overflow-y-scroll sideCart absolute top-0 right-0 bg-blue-300 px-8 py-10 transform transition-transform translate-x-full ${Object.keys(cart).length !== 0 ? 'translate-x-0' : 'translate-x-full'}`}>
