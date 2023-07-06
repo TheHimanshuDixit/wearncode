@@ -1,7 +1,80 @@
-import React from 'react'
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react'
 import { MdOutlinePayment } from 'react-icons/Md';
+import { AiFillLock } from 'react-icons/Ai';
+import { GiCancel } from 'react-icons/Gi';
+import Router from 'next/router';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const payment = () => {
+const payment = ({cart, subtotal}) => {
+    useEffect(() => {
+        const token = localStorage.getItem('order');
+        if (!token) {
+            Router.push('/login')
+        }
+    }, [])
+
+    const [paymentInfo, setPaymentInfo] = useState('card')
+
+    const handleChange = (e) => {
+        setPaymentInfo(e.target.value)
+    }
+
+    const handleClick = async () => {
+        const { email, address } = await JSON.parse(localStorage.getItem('order'));
+        const orderId = Math.floor(Math.random() * 10000000000);;
+        const res = await fetch('http://localhost:3000/api/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, orderId, paymentInfo, products: cart, address, amount: subtotal })
+        });
+        const data = await res.json()
+        if (data.success) {
+            localStorage.removeItem('order')
+            localStorage.removeItem('cart')
+            toast.success('Payment is in progress', {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setTimeout(() => {
+                toast.success('Order is placed', {
+                    position: "bottom-left",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }, 3000);
+            setTimeout(() => {
+                Router.push('/order')
+            }, 4000);
+        }
+        else {
+            toast.error('Something Went Wrong', {
+                position: "bottom-left",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    }
+
     return (
         <>
             <style jsx>
@@ -58,12 +131,24 @@ const payment = () => {
                   }
             `}
             </style>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
 
             <div className="min-w-screen min-h-screen bg-gray-200 flex items-center justify-center px-5 pb-10 pt-16">
                 <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700 hello">
                     <div className="w-full pt-1 pb-5">
                         <div className="bg-[#007fff] text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
-                            <MdOutlinePayment className="mdi mdi-credit-card-outline text-3xl"/>
+                            <MdOutlinePayment className="mdi mdi-credit-card-outline text-3xl" />
                         </div>
                     </div>
                     <div className="mb-10">
@@ -72,13 +157,13 @@ const payment = () => {
                     <div className="mb-3 flex -mx-2">
                         <div className="px-2">
                             <label htmlFor="type1" className="flex items-center cursor-pointer">
-                                <input type="radio" className="h-5 w-5 text-[#007fff]" name="type" id="type1" defaultChecked/>
+                                <input onChange={handleChange} type="radio" className="h-5 w-5 text-[#007fff]" name="type" id="type1" value="card" defaultChecked />
                                 <img src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png" className="h-8 ml-3" />
                             </label>
                         </div>
                         <div className="px-2">
                             <label htmlFor="type2" className="flex items-center cursor-pointer">
-                                <input type="radio" className="h-5 w-5 text-[#007fff]" name="type" id="type2" />
+                                <input onChange={handleChange} type="radio" className="h-5 w-5 text-[#007fff]" name="type" id="type2" value="paypal" />
                                 <img src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png" className="h-8 ml-3" />
                             </label>
                         </div>
@@ -137,15 +222,15 @@ const payment = () => {
                         </div>
                     </div>
                     <div>
-                        <button className="block w-full max-w-xs mx-auto bg-[#007fff] hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"><i className="mdi mdi-lock-outline mr-1"></i> PAY NOW</button>
+                        <button onClick={handleClick} className="block w-full max-w-xs mx-auto bg-[#007fff] hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"><AiFillLock className='inline mr-1 mb-1' /> PAY NOW</button>
                     </div>
                 </div>
             </div>
-            <div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
+            <div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-5">
                 <div>
-                    <a title="Buy me a beer" href="https://www.buymeacoffee.com/scottwindon" target="_blank" className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12">
-                        <img className="object-cover object-center w-full h-full rounded-full" src="https://i.pinimg.com/originals/60/fd/e8/60fde811b6be57094e0abc69d9c2622a.jpg" />
-                    </a>
+                    <Link href="/checkout" className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12">
+                        <GiCancel className='object-cover object-center w-1/2 h-full rounded-full m-auto text-[#007fff]' />
+                    </Link>
                 </div>
             </div>
         </>

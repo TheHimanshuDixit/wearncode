@@ -56,9 +56,23 @@ const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
     } else {
       setDisabled(true)
     }
-
-
   }
+
+  const handleClick = async () => {
+    setAddress(address + "+" + pincode)
+    const data = { email, address }
+    localStorage.setItem('order', JSON.stringify(data));
+    setName('')
+    setEmail('')
+    setAddress('')
+    setPhone('')
+    setCity('')
+    setState('')
+    setPincode('')
+    setDisabled(true)
+    Router.push('/payment')
+  }
+
 
 
   return (
@@ -129,7 +143,7 @@ const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
         </ol>
         <span className="total font-bold">Subtotal : {subtotal}</span>
       </div>
-      <Link href={'/'}><button disabled={disabled} className=" disabled:bg-blue-300 flex m-2 text-white bg-[#007fff] border-0 py-2 px-4 focus:outline-none hover:bg-[#009fff] text-md md:text-lg rounded-lg">Pay ₹ {subtotal}</button></Link>
+      <button disabled={disabled} onClick={handleClick} className=" disabled:bg-blue-300 flex m-2 text-white bg-[#007fff] border-0 py-2 px-4 focus:outline-none hover:bg-[#009fff] text-md md:text-lg rounded-lg">Pay ₹ {subtotal}</button>
     </div>
   )
 }
