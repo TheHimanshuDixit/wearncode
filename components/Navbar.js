@@ -48,7 +48,7 @@ const Navbar = ({ user, cart, cartQty, logout, addToCart, removeFromCart, clearC
           {user.value && <MdAccountCircle onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className='mx-2' />}
           {dropdown && <div onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className='absolute w-20 md:w-24 text-center top-5 md:top-6 right-8 md:right-9 bg-blue-400 shadow-xl rounded-md p-2 text-sm md:text-lg text-white'>
             <Link href={"/profile"}><div className='hover:text-[#007fff] hover:underline font-semibold'>Profile</div></Link>
-            <Link href={"/orders"}><div className='hover:text-[#007fff] hover:underline font-semibold'>Orders</div></Link>
+            <Link href={"/myorders"}><div className='hover:text-[#007fff] hover:underline font-semibold'>Orders</div></Link>
             <div onClick={logout} className='hover:text-[#007fff] hover:underline font-semibold'>Logout</div>
           </div>}
           {!user.value && <Link href={"/login"}>

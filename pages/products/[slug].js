@@ -73,7 +73,7 @@ const Post = ({ buyNow, addToCart, product, variants }) => {
                 pauseOnHover
                 theme="light"
             />
-            <section className="text-gray-600 body-font overflow-hidden">
+            <section className="text-gray-600 body-font overflow-hidden min-h-screen">
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-1/2 px-20 md:px-24 object-cover object-top rounded" src={product.image} />

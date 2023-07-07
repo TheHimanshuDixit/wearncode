@@ -1,61 +1,46 @@
-import React, { useEffect } from 'react'
-import router from 'next/router'
-import mongoose from "mongoose";
+import React from 'react'
+import { useRouter } from 'next/router'
 import Order from '@/models/order';
+import mongoose from 'mongoose';
 
-const Orders = () => {
-
-  useEffect(() => {
-    if(!localStorage.getItem('token')) {
-        router.push('/login')
-    }
-}, [])
+const Orders = ({ order }) => {
+  const products = order.products;
 
   return (
-    <div className='container mx-auto'>
-      <h1 className='font-semibold text-2xl text-center pt-10 pb-5'>My Orders</h1>
-      <div className="flex flex-col">
-        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
-              <table className="min-w-full text-left text-sm font-light">
-                <thead className="border-b font-medium dark:border-neutral-500">
-                  <tr>
-                    <th scope="col" className="px-6 py-4">#</th>
-                    <th scope="col" className="px-6 py-4">First</th>
-                    <th scope="col" className="px-6 py-4">Last</th>
-                    <th scope="col" className="px-6 py-4">Handle</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium">1</td>
-                    <td className="whitespace-nowrap px-6 py-4">Mark</td>
-                    <td className="whitespace-nowrap px-6 py-4">Otto</td>
-                    <td className="whitespace-nowrap px-6 py-4">@mdo</td>
-                  </tr>
-                  <tr
-                    className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium">2</td>
-                    <td className="whitespace-nowrap px-6 py-4">Jacob</td>
-                    <td className="whitespace-nowrap px-6 py-4">Thornton</td>
-                    <td className="whitespace-nowrap px-6 py-4">@fat</td>
-                  </tr>
-                  <tr
-                    className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium">3</td>
-                    <td className="whitespace-nowrap px-6 py-4">Larry</td>
-                    <td className="whitespace-nowrap px-6 py-4">Wild</td>
-                    <td className="whitespace-nowrap px-6 py-4">@twitter</td>
-                  </tr>
-                </tbody>
-              </table>
+    <section className="text-gray-600 body-font overflow-hidden">
+      <div className="container px-5 py-24 mx-auto">
+        <div className="lg:w-4/5 mx-auto flex flex-wrap">
+          <div className="lg:w-1/2 w-full lg:pr-10 lg:py-28 mb-6 lg:mb-0">
+            <h2 className="text-sm title-font text-gray-500 tracking-widest">WEARNCODE</h2>
+            <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">Order Id : {order.orderId}</h1>
+            <p className="leading-relaxed">Your order has been successfully placed.</p>
+            <p className="leading-relaxed mb-4">Your Payment status is <strong>{order.status}</strong></p>
+
+            <div className="flex border-t border-gray-200 py-2">
+              <span className="text-[#007fff] font-bold">Item Description</span>
+              <span className="ml-48 text-[#007fff] font-bold">Quantity</span>
+              <span className="ml-auto text-[#007fff] font-bold">Item Total</span>
+            </div>
+
+            {Object.keys(products).map((item) => {
+              return <div key={item} className="flex border-t border-gray-200 py-5">
+                <span className="text-gray-500">{products[item].name} ({products[item].size} / {products[item].variant})</span>
+                <span className="ml-auto text-gray-900">{products[item].qty}</span>
+                <span className="ml-auto text-gray-900">{products[item].price}</span>
+              </div>
+            }
+            )}
+            <div>
+              <span className="title-font font-medium text-2xl text-gray-900">Subtotal : ₹{order.amount}</span>
+              <div className="my-5">
+                <button className=" text-white bg-[#007fff] border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Track Order</button>
+              </div>
             </div>
           </div>
+          <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="/icon.png" />
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -64,11 +49,15 @@ export async function getServerSideProps(context) {
   if (!mongoose.connections[0].readyState) {
     await mongoose.connect(MONGODB_URI)
   }
-  const orders = await Order.find({ });
-
+  const order = await Order.findById(context.query.id);
   return {
-    props: { order: orders }, // will be passed to the page component as props
+    props: { order: JSON.parse(JSON.stringify(order)) }, // will be passed to the page component as props
   }
 }
 
+
 export default Orders
+
+
+
+

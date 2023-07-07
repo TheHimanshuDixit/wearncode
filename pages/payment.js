@@ -7,7 +7,7 @@ import Router from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const payment = ({cart, subtotal}) => {
+const payment = ({ cart, subtotal }) => {
     useEffect(() => {
         const token = localStorage.getItem('order');
         if (!token) {
@@ -58,7 +58,7 @@ const payment = ({cart, subtotal}) => {
                 });
             }, 3000);
             setTimeout(() => {
-                Router.push('/order')
+                Router.push('/orders?id=' + data.u._id)
             }, 4000);
         }
         else {
