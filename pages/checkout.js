@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/Ai';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import pincodes from '../pincodes.json'
 
 const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
   useEffect(() => {
@@ -61,45 +62,58 @@ const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
   }
 
   const handleClick = async () => {
-    fetch('/api/checksbeforepayment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'auth-token': localStorage.getItem('token')
-      },
-      body: JSON.stringify({ cart, email }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success == 'success') {
-          setAddress(address + "+" + pincode)
-          const data = { email, address }
-          localStorage.setItem('order', JSON.stringify(data));
-          setName('')
-          setEmail('')
-          setAddress('')
-          setPhone('')
-          setCity('')
-          setState('')
-          setPincode('')
-          setDisabled(true)
-          Router.push('/payment')
-        } else {
-          toast.error(data.error, {
-            position: "bottom-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        }
+    if (Object.keys(pincodes).includes(pincode)) {
+      fetch('/api/checksbeforepayment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem('token')
+        },
+        body: JSON.stringify({ cart, email }),
       })
-      .catch((error) => {
-        console.error('Error:', error);
+        .then(response => response.json())
+        .then(data => {
+          if (data.success == 'success') {
+            setAddress(address + "+" + pincode)
+            const data = { email, address }
+            localStorage.setItem('order', JSON.stringify(data));
+            setName('')
+            setEmail('')
+            setAddress('')
+            setPhone('')
+            setCity('')
+            setState('')
+            setPincode('')
+            setDisabled(true)
+            Router.push('/payment')
+          } else {
+            toast.error(data.error, {
+              position: "bottom-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    } else {
+      toast.error('We are not delivering to this pincode', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
       });
+    }
   }
 
 
