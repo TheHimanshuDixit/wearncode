@@ -74,9 +74,10 @@ const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
         .then(response => response.json())
         .then(data => {
           if (data.success == 'success') {
-            setAddress(address + "+" + pincode)
-            const data = { email, address }
-            localStorage.setItem('order', JSON.stringify(data));
+            const add = address + ',' + city + ',' + state + ',' + pincode;
+            setAddress(add)
+            const d = { email, add }
+            localStorage.setItem('order', JSON.stringify(d));
             setName('')
             setEmail('')
             setAddress('')

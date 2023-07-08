@@ -12,14 +12,15 @@ const handler = async (req, res) => {
         if (user) {
             if (req.body.email == user.email && req.body.password == decryptedPass) {
                 var token = jwt.sign({ email: user.email, name: user.name }, process.env.JWT_SECRET, { expiresIn: '2d' });  // expires in 2 days
+                console.log(token);
                 res.status(200).json({ success: "success", token });
             }
             else {
-                res.status(400).json({ success: "success", error: "Invalid Credentials" });
+                res.status(400).json({ error: "Invalid Credentials" });
             }
         }
         else {
-            res.status(400).json({ success: "success", error: "No user forund" });
+            res.status(400).json({ error: "No user forund" });
         }
     }
     else {
