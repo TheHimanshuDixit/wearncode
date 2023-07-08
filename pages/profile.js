@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import router from 'next/router'
-import { set } from 'mongoose'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
 
@@ -113,10 +114,28 @@ const Profile = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    alert(data.error)
+                    toast.error('Something went wrong', {
+                        position: "bottom-left",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 }
                 else {
-                    alert(data.success)
+                    toast.success('Details Updated successfully', {
+                        position: "bottom-left",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                     setPassword('')
                     setCpassword('')
                     setPasschange(false)
@@ -128,6 +147,18 @@ const Profile = () => {
 
     return (
         <div className="bg-gray-200 min-h-screen pt-2 font-mono">
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="container mx-auto">
                 <div className="inputs w-full max-w-2xl p-6 mx-auto">
                     <h2 className="text-2xl text-gray-900">Update Your Account</h2>
