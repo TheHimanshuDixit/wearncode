@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/Ai';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
   useEffect(() => {
@@ -59,24 +61,62 @@ const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
   }
 
   const handleClick = async () => {
-    setAddress(address + "+" + pincode)
-    const data = { email, address }
-    localStorage.setItem('order', JSON.stringify(data));
-    setName('')
-    setEmail('')
-    setAddress('')
-    setPhone('')
-    setCity('')
-    setState('')
-    setPincode('')
-    setDisabled(true)
-    Router.push('/payment')
+    fetch('/api/checksbeforepayment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': localStorage.getItem('token')
+      },
+      body: JSON.stringify({ cart, email }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success == 'success') {
+          setAddress(address + "+" + pincode)
+          const data = { email, address }
+          localStorage.setItem('order', JSON.stringify(data));
+          setName('')
+          setEmail('')
+          setAddress('')
+          setPhone('')
+          setCity('')
+          setState('')
+          setPincode('')
+          setDisabled(true)
+          Router.push('/payment')
+        } else {
+          toast.error(data.error, {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
-
 
 
   return (
     <div className='container m-auto px-10'>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <h1 className='font-bold text-4xl my-8 text-center'>Checkout</h1>
       <h2 className='font-bold text-xl'>1. Delivery Details</h2>
       <div className="mx-auto flex my-4">

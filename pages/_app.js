@@ -137,7 +137,7 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" href="/icon.png" />
       </Head>
       {key && <Navbar user={user} key={key} cart={cart} cartQty={cartQty} logout={logout} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} />}
-      <Component buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} {...pageProps} />
+      <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subtotal={subtotal} {...pageProps} />
       <Footer />
     </>
   )

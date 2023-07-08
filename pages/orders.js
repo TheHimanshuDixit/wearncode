@@ -1,10 +1,13 @@
-import React from 'react'
-import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import Order from '@/models/order';
 import mongoose from 'mongoose';
 
-const Orders = ({ order }) => {
+const Orders = ({ order, clearCart }) => {
   const products = order.products;
+
+  useEffect(() => {
+    clearCart();
+  }, [])
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
