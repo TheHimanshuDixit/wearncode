@@ -8,6 +8,7 @@ const Profile = () => {
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
     const [oldpassword, setOldpassword] = useState('')
+    const [pass, setPass] = useState('');
     const [password, setPassword] = useState('')
     const [cpassword, setCpassword] = useState('')
     const [passchange, setPasschange] = useState(false)
@@ -69,6 +70,9 @@ const Profile = () => {
         }
         else if (name == 'address') {
             setAddress(value)
+        }
+        else if (name == 'pass') {
+            setPass(value)
         }
         else if (name == 'password') {
             setPassword(value)
@@ -168,19 +172,36 @@ const Profile = () => {
                                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' htmlFor='grid-text-1'>email address</label>
                                 <input value={email} name='email' className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' id='grid-text-1' type='email' placeholder='Enter email' readOnly />
                             </div>
-                            {!passchange ? <div className='w-full md:w-full px-3 mb-6 '>
+                            {!passchange ? <div className='w-full md:w-full px-3 mb-6'>
                                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>password</label>
-                                <button onClick={() => { setPasschange(true) }} className="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md ">Change your password</button>
-                            </div> : <div className="flex items-center justify-between mt-4">
+                                <div className='md:flex md:justify-between'>
+                                    <button onClick={(e) => {
+                                        e.preventDefault();
+                                        if (oldpassword === pass) { setPasschange(true); setPass(''); } else {
+                                            toast.error('Please enter correct password', {
+                                                position: "top-center",
+                                                autoClose: 2000,
+                                                hideProgressBar: false,
+                                                closeOnClick: true,
+                                                pauseOnHover: true,
+                                                draggable: true,
+                                                progress: undefined,
+                                                theme: "light",
+                                            });
+                                        }
+                                    }} className="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md ">Change your password</button>
+                                    <input id='pass' name='pass' value={pass} onChange={onChange} className='appearance-none block w-full md:w-2/3 mt-4 md:mt-0 bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='current-password' placeholder='Enter old password to change the password' />
+                                </div>
+                            </div> : <div className="flex items-center justify-between mt-4 w-full">
                                 <div className='w-full md:w-1/2 px-3 mb-6'>
-                                    <label htmlFor='password' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' >Password</label>
+                                    <label htmlFor='password' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' >New Password</label>
                                     <input id='password' name='password' value={password} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='password' />
                                 </div>
                                 <div className='w-full md:w-1/2 px-3 mb-6'>
                                     <label htmlFor='cpassword' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' >Confirm Password</label>
                                     <input id='cpassword' name='cpassword' value={cpassword} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='password' />
                                 </div>
-                                <button onClick={() => { setPasschange(false) }} className="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md ">Cancel</button>
+                                <button onClick={() => { setPasschange(false) }} className="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md">Cancel</button>
                             </div>}
 
                             <div className="personal w-full border-t border-gray-400 pt-4">
@@ -188,33 +209,33 @@ const Profile = () => {
                                 <div className="flex items-center justify-between mt-4">
                                     <div className='w-full md:w-1/2 px-3 mb-6'>
                                         <label htmlFor='name' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' >Name</label>
-                                        <input id='name' name='name' value={name} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='text' required />
+                                        <input id='name' name='name' value={name} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='text' />
                                     </div>
                                     <div className='w-full md:w-1/2 px-3 mb-6'>
                                         <label htmlFor='phone' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' >Phone No.</label>
-                                        <input id='phone' name='phone' value={phone} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='number' required />
+                                        <input id='phone' name='phone' value={phone} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='number' />
                                     </div>
                                 </div>
                                 <div className='w-full md:w-full px-3 mb-6'>
                                     <label htmlFor='address' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Address</label>
-                                    <textarea id='address' name='address' value={address} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' required ></textarea>
+                                    <textarea id='address' name='address' value={address} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' ></textarea>
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
                                     <div className='w-full md:w-1/2 px-3 mb-6'>
                                         <label htmlFor='city' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' >City</label>
-                                        <input id='city' name='city' value={city} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='text' required />
+                                        <input id='city' name='city' value={city} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='text' />
                                     </div>
                                     <div className='w-full md:w-1/2 px-3 mb-6'>
                                         <label htmlFor='state' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' >State</label>
-                                        <input id='state' name='state' value={state} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='text' required />
+                                        <input id='state' name='state' value={state} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='text' />
                                     </div>
                                     <div className='w-full md:w-1/2 px-3 mb-6'>
                                         <label htmlFor='pincode' className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' >Pincode</label>
-                                        <input id='pincode' name='pincode' value={pincode} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='number' required />
+                                        <input id='pincode' name='pincode' value={pincode} onChange={onChange} className='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' type='number' />
                                     </div>
                                 </div>
                                 <div className="flex justify-end">
-                                    <button onClick={handleClick} className="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md mr-3" type="submit">Save changes</button>
+                                    <button onClick={handleClick} className="appearance-none bg-gray-200 text-gray-900 px-2 py-1 shadow-sm border border-gray-400 rounded-md mr-3">Save changes</button>
                                 </div>
                             </div>
                         </div>

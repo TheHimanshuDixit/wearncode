@@ -7,12 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import pincodes from '../pincodes.json'
 
 const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      Router.push('/login')
-    }
-  }, [])
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -23,8 +17,46 @@ const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
   const [pincode, setPincode] = useState('')
   const [disabled, setDisabled] = useState(true)
 
-  const handleChange = async (e) => {
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Router.push('/login')
+    }
+    else {
+      fetch('/api/getuser', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem('token')
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          setName(data.user.name)
+          setEmail(data.user.email)
+          setPhone(data.user.phone)
+          if (data.user.address) {
+            const details = data.user.address.split(',')
+            if (details[0]) {
+              setAddress(details[0])
+            }
+            if (details[1]) {
+              setCity(details[1])
+            }
+            if (details[2]) {
+              setState(details[2])
+            }
+            if (details[3]) {
+              setPincode(details[3])
+            }
+          }
+        }
+        )
+        .catch(err => console.log(err))
+    }
+  }, [])
 
+  const handleChange = async (e) => {
     const { name, value } = e.target
     if (name == 'name') {
       setName(value)
