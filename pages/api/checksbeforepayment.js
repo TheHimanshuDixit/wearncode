@@ -5,6 +5,10 @@ import jwt from 'jsonwebtoken';
 
 const handler = async (req, res) => {
     const cart = (req.body.cart);
+    console.log(cart);
+    if (Object.keys(cart).length == 0) {
+        return res.status(200).json({ error: 'Please add some products to cart' });
+    }
     const email = (req.body.email);
     const token = req.headers['auth-token'];
     const data = jwt.verify(token, process.env.JWT_SECRET);
