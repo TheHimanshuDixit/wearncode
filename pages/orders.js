@@ -16,7 +16,7 @@ const Orders = ({ order, clearCart }) => {
           <div className="lg:w-1/2 w-full lg:pr-10 lg:py-28 mb-6 lg:mb-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">WEARNCODE</h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">Order Id : {order.orderId}</h1>
-            <p className="leading-relaxed">Your order has been successfully placed.</p>
+            <p className="leading-relaxed">Your order has been successfully placed on {order.createdAt}.</p>
             <p className="leading-relaxed mb-4">Your Payment status is <strong>{order.status}</strong></p>
 
             <div className="flex border-t border-gray-200 py-2">
