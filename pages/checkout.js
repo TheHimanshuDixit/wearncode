@@ -32,26 +32,25 @@ const Checkout = ({ cart, addToCart, removeFromCart, subtotal }) => {
       })
         .then(res => res.json())
         .then(data => {
-          setName(data.user.name)
-          setEmail(data.user.email)
-          setPhone(data.user.phone)
+          if (data.user.name) {
+            setName(data.user.name)
+          }
+          if (data.user.email) {
+            setEmail(data.user.email)
+          }
+          if (data.user.phone) {
+            setPhone(data.user.phone)
+          }
           if (data.user.address) {
             const details = data.user.address.split(',')
             if (details[0]) {
               setAddress(details[0])
             }
-            if (details[1]) {
-              setCity(details[1])
-            }
-            if (details[2]) {
-              setState(details[2])
-            }
             if (details[3]) {
               setPincode(details[3])
             }
           }
-        }
-        )
+        })
         .catch(err => console.log(err))
     }
   }, [])
