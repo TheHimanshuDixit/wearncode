@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import router from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { set } from 'mongoose';
 
 const Login = () => {
 
@@ -12,8 +15,159 @@ const Login = () => {
         }
     }, [])
 
+    const [email, setEmail] = useState('');
+    const [check, setCheck] = useState('');
+    const [newpassword, setNewpassword] = useState('');
+    const [confirmpassword, setConfirmpassword] = useState('');
+    const [code, setCode] = useState('');
+    const [hide, setHide] = useState(true);
+
+    const handleChange = (e) => {
+        if (e.target.name === 'email') {
+            setEmail(e.target.value);
+        }
+        else if (e.target.name === 'newpassword') {
+            setNewpassword(e.target.value);
+        }
+        else if (e.target.name === 'confirmpassword') {
+            setConfirmpassword(e.target.value);
+        }
+        else if (e.target.name === 'code') {
+            setCode(e.target.value);
+        }
+    }
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = fetch('/api/forgot', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email
+            })
+        })
+        const response = data.json();
+        if (response.error) {
+            toast.error(response.error, {
+                position: "bottom-left",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+        else {
+            setCheck(response.random);
+            setHide(false);
+            toast.success(response.success, {
+                position: "bottom-left",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    }
+
+    const handleReset = (e) => {
+        e.preventDefault();
+
+        if (check !== code) {
+            toast.error('Code does not match', {
+                position: "bottom-left",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+        if (newpassword !== confirmpassword) {
+            toast.error('Password does not match', {
+                position: "bottom-left",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+        else {
+            const data = fetch('/api/reset', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: newpassword
+                })
+            })
+            const response = data.json();
+            if (response.error) {
+                toast.error(response.error, {
+                    position: "bottom-left",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+            else {
+                toast.success(response.success, {
+                    position: "bottom-left",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                setHide(true);
+                setEmail('');
+                setNewpassword('');
+                setConfirmpassword('');
+                setCode('');
+                setCheck('');
+                setTimeout(() => {
+                    router.push('/login');
+                }, 1000);
+            }
+        }
+    }
+
+
     return (
         <div className='mt-5 md:mb-24 md:mt-28'>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="flex justify-center">
                 <div className="flex flex-col justify-center items-center md:flex-row shadow rounded-xl max-w-7xl w-[90%]  m-2">
                     <div className=" w-full md:w-3/4 shadow-2xl shadow-black py-10">
@@ -33,16 +187,36 @@ const Login = () => {
                             </div>
                             <h1 className="text-sm font-medium text-gray-600 m-2">OR</h1>
                         </div>
-                        <form action="">
+                        {hide ? <form action="">
                             <div className="flex flex-col justify-center items-center m-2 space-y-6 md:space-y-8">
                                 <div className="">
-                                    <input type="email" placeholder="Email" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
+                                    <input onChange={handleChange} name='email' type="email" placeholder="Email" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
                                 </div>
                             </div>
                             <div className="text-center mt-3">
-                                <button className="px-24 md:px-[118px] lg:px-[140px] py-2 rounded-md text-white bg-gradient-to-l from-[#007fff] to-[#4db9fc]  font-medium m-2 mb-6 ">Continue</button>
+                                <button onClick={handleSubmit} className="px-24 md:px-[118px] lg:px-[140px] py-2 rounded-md text-white bg-gradient-to-l from-[#007fff] to-[#4db9fc]  font-medium m-2 mb-6 ">Continue</button>
                             </div>
-                        </form>
+                        </form> :
+                            <form action="">
+                                <div className="flex flex-col justify-center items-center m-2 space-y-6 md:space-y-8">
+                                    <div className="">
+                                        <input onChange={handleChange} name='code' type="number" placeholder="Enter code send in mail" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col justify-center items-center m-2 space-y-6 md:space-y-8">
+                                    <div className="">
+                                        <input onChange={handleChange} name='newpassword' type="password" placeholder="New Password" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col justify-center items-center m-2 space-y-6 md:space-y-8">
+                                    <div className="">
+                                        <input onChange={handleChange} name='confirmpassword' type="current-password" placeholder="Confirm Password" className=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-[#007fff] focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" required />
+                                    </div>
+                                </div>
+                                <div className="text-center mt-3">
+                                    <button onClick={handleReset} className="px-24 md:px-[118px] lg:px-[140px] py-2 rounded-md text-white bg-gradient-to-l from-[#007fff] to-[#4db9fc]  font-medium m-2 mb-6 ">Continue</button>
+                                </div>
+                            </form>}
                     </div>
                     <div className="h-[100%] w-full md:w-1/3  bg-gradient-to-l from-[#007fff] to-[#4db9fc]  items-center flex justify-center shadow-2xl shadow-black">
                         <div className="text-white text-base font-semibold text-center my-10 space-y-2 m-2">
