@@ -12,7 +12,8 @@ const handler = async (req, res) => {
             res.status(400).json({ error: "User does not exist with this email" });
         }
         else {
-            await User.updateOne({ email: email }, { password: password });
+            const pass = CryptoJS.AES.encrypt(password, process.env.AES_SECRET).toString();
+            await User.updateOne({ email: email }, { password: pass });
             res.status(200).json({ success: "Password updated successfully" });
         }
     }

@@ -1,14 +1,14 @@
 import User from '@/models/user';
 import dbConnect from '../../middleware/dbConnect';
+require('dotenv').config();
+let nodemailer = require('nodemailer');
 
 const handler = async (req, res) => {
 
     // check if the user exists in the database
-
     if (req.method == 'POST') {
         let email = req.body.email;
         let user = await User.findOne({ email: email });
-
         if (!user) {
             res.status(400).json({ error: "User does not exist with this email" });
         }
@@ -101,7 +101,35 @@ const handler = async (req, res) => {
             </body>
             
             </html>`
-            res.status(200).json({ success: "Email sent successfully", random: random })
+            try {
+                const transporter = nodemailer.createTransport({
+                    host: 'smtp.gmail.com',
+                    port: 465,
+                    secure: true,
+                    service: 'gmail',
+                    auth: {
+                        user: process.env.USER,
+                        pass: process.env.PASS,
+                    }
+                });
+                const mailOption = {
+                    from: process.env.USER,                                     //Sender mail
+                    to: email,					                                // Recever mail
+                    subject: 'Password change request',                         // Subject of mail
+                    html: emailtemplate                                         // Html template
+                }
+                transporter.sendMail(mailOption, function (error, info) {
+                    if (error) {
+                        res.status(400).json({ error: "Not send !! please do again" });
+                    }
+                    else {
+                        res.status(200).json({ success: "Email sent successfully", random: random })
+                    }
+                })
+            }
+            catch (error) {
+                res.status(500).send("Internal Server Error");
+            }
         }
     }
 }

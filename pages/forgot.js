@@ -4,7 +4,6 @@ import router from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { set } from 'mongoose';
 
 const Login = () => {
 
@@ -38,9 +37,19 @@ const Login = () => {
     }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = fetch('/api/forgot', {
+        toast.warning("It's take some time!! please wait", {
+            position: "bottom-left",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+        const data = await fetch('/api/forgot', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -49,7 +58,7 @@ const Login = () => {
                 email: email
             })
         })
-        const response = data.json();
+        const response = await data.json();
         if (response.error) {
             toast.error(response.error, {
                 position: "bottom-left",
@@ -78,10 +87,10 @@ const Login = () => {
         }
     }
 
-    const handleReset = (e) => {
+    const handleReset = async (e) => {
         e.preventDefault();
 
-        if (check !== code) {
+        if (check != code) {
             toast.error('Code does not match', {
                 position: "bottom-left",
                 autoClose: 2000,
@@ -92,8 +101,9 @@ const Login = () => {
                 progress: undefined,
                 theme: "light",
             });
+            return;
         }
-        if (newpassword !== confirmpassword) {
+        if (newpassword != confirmpassword) {
             toast.error('Password does not match', {
                 position: "bottom-left",
                 autoClose: 2000,
@@ -104,9 +114,10 @@ const Login = () => {
                 progress: undefined,
                 theme: "light",
             });
+            return;
         }
         else {
-            const data = fetch('/api/reset', {
+            const data = await fetch('/api/reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -116,7 +127,7 @@ const Login = () => {
                     password: newpassword
                 })
             })
-            const response = data.json();
+            const response = await data.json();
             if (response.error) {
                 toast.error(response.error, {
                     position: "bottom-left",
