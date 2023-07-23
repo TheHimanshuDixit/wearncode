@@ -6,6 +6,7 @@ import { GiCancel } from 'react-icons/Gi';
 import Router from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head';
 
 const payment = ({ cart, subtotal }) => {
     useEffect(() => {
@@ -77,6 +78,9 @@ const payment = ({ cart, subtotal }) => {
 
     return (
         <>
+            <Head>
+                <title>WearnCode</title>
+            </Head>
             <style jsx>
                 {`
                   
