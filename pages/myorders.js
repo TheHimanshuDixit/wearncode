@@ -13,7 +13,7 @@ const Myorders = () => {
     if (!localStorage.getItem('token')) {
       router.push('/login')
     }
-    fetch('http://localhost:3000/api/myorders', {
+    fetch('/api/myorders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

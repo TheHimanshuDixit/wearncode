@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/Ai';
+import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import pincodes from '../pincodes.json'
