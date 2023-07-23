@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import mongoose from "mongoose";
-import Product from '@/models/product';
+import Product from '../models/product';
 import Head from 'next/head';
 
 

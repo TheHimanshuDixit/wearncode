@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { MdOutlinePayment } from 'react-icons/md';
 import { AiFillLock } from 'react-icons/ai';
-import { GiCancel } from 'react-icons/Gi';
+import { GiCancel } from 'react-icons/gi';
 import Router from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

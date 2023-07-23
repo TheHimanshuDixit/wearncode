@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Order from '@/models/order';
+import Order from '../models/order';
 import mongoose from 'mongoose';
 import Head from 'next/head';
 
