@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import router from 'next/router'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head';
 
 const Profile = () => {
 

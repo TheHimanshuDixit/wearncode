@@ -8,7 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
 
-const payment = ({ cart, subtotal }) => {
+const Payment = ({ cart, subtotal }) => {
+
     useEffect(() => {
         const token = localStorage.getItem('order');
         if (!token) {
@@ -81,6 +82,20 @@ const payment = ({ cart, subtotal }) => {
             <Head>
                 <title>WearnCode</title>
             </Head>
+
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+
             <style jsx>
                 {`
                   
@@ -135,18 +150,6 @@ const payment = ({ cart, subtotal }) => {
                   }
             `}
             </style>
-            <ToastContainer
-                position="bottom-left"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
 
             <div className="min-w-screen min-h-screen bg-gray-200 flex items-center justify-center px-5 pb-10 pt-16">
                 <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700 hello">
@@ -241,4 +244,4 @@ const payment = ({ cart, subtotal }) => {
     )
 }
 
-export default payment
+export default Payment
