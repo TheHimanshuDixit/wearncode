@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { AiOutlineShoppingCart, AiFillCloseCircle, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/Ai';
-import { BsFillBagCheckFill } from 'react-icons/Bs';
-import { MdAccountCircle } from 'react-icons/Md';
+import { AiOutlineShoppingCart, AiFillCloseCircle, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
+import { BsFillBagCheckFill } from 'react-icons/bs';
+import { MdAccountCircle } from 'react-icons/md';
 import { useRouter } from 'next/router';
 
 
