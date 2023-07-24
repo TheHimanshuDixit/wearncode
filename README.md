@@ -12,7 +12,7 @@ An ecommerce website. All functionality is working same like amazon/flipkart exc
 
 # Screenshot
 
-![image](https://github.com/TheHimanshuDixit/wearncode/assets/107857348/5eda8d07-c297-4a10-898d-01aa2da5f64b)
+![Screenshot 2023-07-13 013701](https://github.com/TheHimanshuDixit/wearncode/assets/107857348/259074c3-02c6-4e16-bcc0-cc34193cb88c)
 
 
 ## Run Locally
