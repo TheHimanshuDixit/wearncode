@@ -1,6 +1,6 @@
 # Ecommerce Website of cloths
 
-An ecommerce website. All functionality is working same like amazon/flipkart except payment gateway.
+An Ecommerce Website of cloths made in NextJs & TailwindCSS. All functionality is working same like amazon/flipkart except payment gateway.
 
 
 # Tech used 
