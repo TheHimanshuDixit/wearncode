@@ -12,7 +12,7 @@ const Contact = () => {
     const data = { phone, name, email, message };
 
     fetch(`/api/postcontact`, {
-      method: 'POST', // or 'PUT'
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -20,7 +20,6 @@ const Contact = () => {
     })
       .then(response => response.json())
       .then(data => {
-        // console.log(data);
         alert("Thanks for contacting us");
         setPhone('')
         setName('')
